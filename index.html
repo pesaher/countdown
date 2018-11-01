@@ -1,7 +1,10 @@
 <!-- Display the countdown timer in an element -->
 <h1 id="demo"></h1>
-
-Answer: <input type="text" id="fname" size="20" name="fname"><br>
+<form action="/action_page.php" onsubmit="return myFunction()">
+  <input type="text" id="fname" size="20" name="fname">
+  <br>
+  <input type="submit" value="Try answer"> 
+</form>
 
 <script>
 // Set the date we're counting down to
@@ -31,4 +34,17 @@ var x = setInterval(function() {
     document.getElementById("demo").innerHTML = "EXPIRED";
   }
 }, 1000);
+
+  function myFunction() {
+    var fname = document.getElementById("fname").value;
+    submitOK = "true";
+
+    if (fname != "Pedro") {
+        alert("The answer is not correct");
+        submitOK = "false";
+    }
+    if (submitOK == "false") {
+        return false;
+    }
+}
 </script>
