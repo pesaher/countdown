@@ -44,34 +44,52 @@ var x = setInterval(function() {
         submitOK = "false";
     }
     if (submitOK == "false") {
-        return false;
+        return sendMail();
     }
 }
 </script>
 <script>
-$('#send').click(function() {
-    $.ajax({ 
-        type: 'POST',
-        url: 'https://mandrillapp.com/api/1.0/messages/send.json',
-        data: {
-            'key': "xxxxxxxx",
-            'message': {
-            'from_email': "pesaher@gmail.com",
-            'to': [
-            {
-            'email': "pesaher@gmail.com",
-            'name': 'Pedro',
-            'type': 'to'
-            }
-            ],
-            'autotext': 'true',
-            'subject': 'TEST! TEST!',
-            'html': 'test'
+function getAjax() {
+    try {
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            try {
+                return new ActiveXObject('Msxml2.XMLHTTP');
+            } catch (try_again) {
+                return new ActiveXObject('Microsoft.XMLHTTP');
             }
         }
-    }).done(function(response) {
-        console.log(response);
-        alert("You send an email!"); // if you're into that sorta thing
-    });
-});
+    } catch (fail) {
+        return null;
+    }
+}
+
+function sendMail() {
+     var rq = getAjax();
+
+     if (rq) {
+         // Success; attempt to use an Ajax request to a PHP script to send the e-mail
+         try {
+             rq.open('GET', 'sendmail.php?to=' + encodeURIComponent('pesaher@gmail.com') + '&subject=' + encodeURIComponent('Hello') + '&d=' + new Date().getTime().toString(), true);
+
+             rq.onreadystatechange = function () {
+                 if (this.readyState === 4) {
+                     if (this.status >= 400) {
+                         // The request failed; fall back to e-mail client
+                         window.open('mailto:' + 'pesaher@gmail.com' + '?subject=' + encodeURIComponent('Hello'));
+                     }
+                 }
+             };
+
+             rq.send(null);
+         } catch (fail) {
+             // Failed to open the request; fall back to e-mail client
+             window.open('mailto:' + 'pesaher@gmail.com' + '?subject=' + encodeURIComponent('Hello'));
+         }
+     } else {
+         // Failed to create the request; fall back to e-mail client
+         window.open('mailto:' + 'pesaher@gmail.com' + '?subject=' + encodeURIComponent('Hello'));
+     }
+}
 </script>
