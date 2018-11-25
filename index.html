@@ -2,7 +2,7 @@
 <h1 id="demo"></h1>
 <img id="giftimer" src="./Pixel-animate_Boca.gif"></img>
 <br>
-<form action="https://formspree.io/pesaher@gmail.com" method="POST" onsubmit="return myFunction()">
+<form id="formtohide" action="https://formspree.io/pesaher@gmail.com" method="POST" onsubmit="return myFunction()">
   <input type="text" id="fname" size="20" name="fname">
   <br>
   <input type="submit" value="Try answer"> 
@@ -35,6 +35,7 @@ var x = setInterval(function() {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "0h 0m 0s";
     document.getElementById("giftimer").src = "https://static-s.aa-cdn.net/img/amazon/30600000415955/b5755ff34df2f9a50087ff6cc8d6e71e";
+    document.getElementById("formtohide").style.display = "none";
   }
 }, 1000);
 
