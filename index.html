@@ -1,6 +1,6 @@
 <!-- Display the countdown timer in an element -->
 <h1 id="demo"></h1>
-<img id="giftimer" src="./Pixel-animate_Boca.gif" width="500"></img>
+<img id="giftimer" src="./Pixel-animate_Boca.gif" width="600"></img>
 <br>
 <form id="formtohide" action="https://formspree.io/pesaher@gmail.com" method="POST" onsubmit="return myFunction()">
   <input type="text" id="fname" size="20" name="fname">
@@ -49,6 +49,7 @@ var x = setInterval(function() {
     }
     else
     {
+      clearInterval(x);
       document.getElementById("giftimer").src = "./Pixel-animate_finl.gif";
     }
     if (submitOK == "false") {
